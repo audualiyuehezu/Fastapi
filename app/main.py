@@ -26,10 +26,6 @@ def find_post_index(id):
     for i,p in enumerate(my_posts):
         if p["id"] == id:
             return i
-def find_post_update():
-    for p in my_posts:
-        if p["id"] == id:
-            return p
 
 
 @app.get("/") 
@@ -72,7 +68,15 @@ def delete_post(id: int):
     my_posts.pop(index)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@app.put("posts/{id}")
-def update_post(id:int):
+@app.put("/posts/{id}", status_code=status.HTTP_201_CREATED)
+def update_post(id:int, post:Post):
+    index = find_post_index(id)
 
-    return
+    if index == None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail=f"The id {id} is not found")
+    
+    post_dict = post.dict()
+    post_dict['id'] = id
+    my_posts[index] = post_dict
+    return {"data": post_dict}
