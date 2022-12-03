@@ -74,7 +74,7 @@ def update_post(id:int, post:Post):
 
     if index == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail=f"The id {id} is not found")
+                            detail=f"The id {id} is not found here")
     
     post_dict = post.dict()
     post_dict['id'] = id
