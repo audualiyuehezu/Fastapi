@@ -62,7 +62,7 @@ def delete_post(id: int):
     index = find_post_index(id)
     if index == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-            detail=f"Post with id:{id} is not found ")
+            detail=f"Post with id:{id} is not found here ")
 
 
     my_posts.pop(index)
